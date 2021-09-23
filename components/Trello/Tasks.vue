@@ -2,11 +2,11 @@
 	<div>
 		<v-flex xs12>
 			<draggable class="overflow-x-auto" v-model="lists"
-			style=" display:flex;" draggable=".item">
-			<!-- @change="changeLista" -->
-				<v-flex xs12 md4 lg3 v-for="(item,i) in lists" :key="i"
+			style=" display:flex;" handle=".handle">
+			<!-- draggable=".item" handle=".handle" -->
+				<v-flex xs12 md4 lg3 xl2 v-for="(item,i) in lists" :key="i"
 				class="pa-2 item" style="height:fit-content">
-					<ItemList :item="item"/>
+					<ItemList :item="item" @onDelete="lists.splice(i,1)"/>
 				</v-flex>
 				<AddList :lists="lists" @onAddList="(item)=>lists.push(item)" />
 			</draggable>
@@ -26,7 +26,11 @@ export default {
 	},
 	data(){
 		return{
-			lists:[],
+			lists:[{
+				title: "TO DO",
+				order: 1,
+				cards: [],
+			}],
 		}
 	}
 }
