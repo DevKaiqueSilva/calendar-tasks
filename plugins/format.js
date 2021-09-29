@@ -3,6 +3,11 @@ export default (context, inject) => {
         const date = formatDate;
         const phone = formatPhone;
         const money = formatMoney
+        return{
+            date,
+            phone,
+            money
+        }
     };
     inject('format', format);
     // For Nuxt <= 2.12, also add 👇

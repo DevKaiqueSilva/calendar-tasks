@@ -20,7 +20,7 @@
             <v-divider />
             <div class="my-2">
                 <span>Título</span>
-                <v-text-field outlined @keyup.enter="addCheckList"
+                <v-text-field outlined @keyup.enter="addCheckList" autofocus
                 v-model="title" dense hide-details background-color="#f1f1f1"
                 filled placeholder="Título"
                 />

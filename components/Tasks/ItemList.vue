@@ -34,7 +34,7 @@
 		<draggable v-model="item.cards" group="card" class="list-group" draggable=".item2">
 			<div class="my-2 item2 list-group-item" style="width:100%"
 			v-for="(card,index) in item.cards" :key="index">
-				<ItemCard @onDetalhe="onDetalhes(card,index,item,i)" :item="card" />
+				<ItemCard :item="card" :list="item" @onDeleteCard="item.cards.splice(index, 1)" />
 			</div>
 		</draggable>
 		<AddCard
@@ -52,8 +52,8 @@
 </template>
 <script>
 import draggable from "vuedraggable";
-import AddCard from "@/components/Trello/Tasks/List/AddCard.vue";
-import ItemCard from "@/components/Trello/Tasks/List/ItemCard.vue";
+import AddCard from "@/components/Tasks/List/AddCard.vue";
+import ItemCard from "@/components/Tasks/List/ItemCard.vue";
 
 export default {
 	props:{
@@ -75,9 +75,6 @@ export default {
 		}
 	},
 	methods:{
-		onDetalhes(){
-
-		},
 		onDelete(){
 			this.$store.dispatch("data/setConfirmMessage",{
 				visible:true,

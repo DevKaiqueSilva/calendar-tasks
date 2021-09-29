@@ -16,6 +16,8 @@
 
 <script>
 import axios from "axios";
+import moment from "moment";
+
 export default {
     props:{
         cards:{
@@ -41,7 +43,8 @@ export default {
                 titulo: this.title.trim(),
                 descricao: "",
                 ordem: this.cards.length + 1,
-                dataEntrega: null,
+                deliveryDate: null,
+                createdAt: moment().format().substring(0,16),
                 comentario: [],
                 etiqueta: [],
                 checklist: [],

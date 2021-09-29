@@ -10,16 +10,17 @@
       <v-text-field
         v-model="dateBR"
         @focus="onFocus"
-        v-mask="'##/##/####'"
+        v-mask="!!range?'##/##/#### ~ ##/##/####':'##/##/####'"
         :background-color="backgroundColor"
         :color="color"
-        :placeholder="placeholder"
-        :rounded="rounded"
-        :disabled="!!disabled ? disabled : false"
+        :dense="dense"
         @keyup="changeText"
+        placeholder="  /  /    "
         :label="label"
         :filled="filled"
         :rules="rules"
+        :readonly="!!range?true:false"
+        :hide-details="hideDetails"
         :outlined="outlined"
         prepend-inner-icon="mdi-calendar"
         v-on="on"
@@ -27,10 +28,13 @@
     </template>
     <v-date-picker
       no-title
+      :min="min"
+      :max="max"
+      :range="!!range?range:false"
       locale="PT-BR"
       v-model="dateEU"
       @change="changeDate"
-      @input="menu = false"
+      @input="()=>{range==true?'':menu = false}"
     ></v-date-picker>
   </v-menu>
 </template>
@@ -42,15 +46,19 @@ export default {
   },
   props: [
     "date",
-    "rounded",
-    "placeholder",
     "backgroundColor",
     "outlined",
     "filled",
     "color",
     "label",
     "rules",
-    "disabled",
+    "dense",
+    "placeholder",
+    "hideDetails",
+    "min",
+    "max",
+    "range",
+    "watch"
   ],
   data() {
     return {
@@ -60,34 +68,60 @@ export default {
     };
   },
   created() {
-    this.dateEU = this.date;
-    this.dateBR = this.date.split("-").reverse().join("/");
+    this.onInit();
+  },
+  watch:{
+    date(){
+      if(this.watch==true){
+        this.onInit();
+      }
+    }
   },
   methods: {
+    onInit(){
+      this.dateEU = this.date;
+      // console.log(this.date);
+      if (!!this.date) {
+        this.dateBR = this.dateFormated(this.date);//this.date.split("-").reverse().join("/");
+        // console.log(this.dateBR)
+      }
+    },
     changeDate() {
       console.log("ChangeDate");
       let date = this.dateEU;
       this.$emit("resetarDate", date);
-      this.dateBR = date.split("-").reverse().join("/");
+      this.dateBR = this.dateFormated(date);
     },
     changeText() {
-      // console.log("changeText");
+      console.log("changeText");
       if (this.dateBR.length == 10) {
         this.dateEU = this.dateBR.split("/").reverse().join("-");
         let date = this.dateEU;
         this.$emit("resetarDate", date);
       }
     },
+    dateFormated(date) {
+      // console.log(this.range);
+      if(!!this.range){
+        // console.log(date);
+        let dateBR = [];
+        date.forEach(item=>{
+          dateBR.push(item.split("-").reverse().join("/"));
+        });
+        // console.log(dateBR.join(" ~ "));
+        return dateBR.join(" ~ ");
+      }else{
+          if (date.length == 10) {
+          return date.split("-").reverse().join("/");
+        } else {
+          return date;
+        }
+      }
+    },
     onFocus() {},
   },
   computed: {
-    dateFormated() {
-      if (this.date.length == 10) {
-        return this.date.split("-").reverse().join("/");
-      } else {
-        return this.date;
-      }
-    },
+    
   },
 };
 </script>

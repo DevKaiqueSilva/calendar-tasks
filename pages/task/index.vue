@@ -16,8 +16,8 @@
 
 <script>
 import draggable from "vuedraggable";
-import AddList from "@/components/Trello/Tasks/AddList.vue";
-import ItemList from "@/components/Trello/Tasks/ItemList.vue";
+import AddList from "@/components/Tasks/AddList.vue";
+import ItemList from "@/components/Tasks/ItemList.vue";
 export default {
 	components:{
 		draggable,
@@ -30,8 +30,11 @@ export default {
 				title: "TO DO",
 				order: 1,
 				cards: [],
-			}],
+			}]
 		}
+	},
+	beforeDestroy(){
+		this.$store.dispatch("data/setTasks", this.lists);
 	}
 }
 </script>

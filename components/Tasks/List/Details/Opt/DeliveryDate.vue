@@ -26,6 +26,7 @@
 						:date="date"
 						@resetarDate="date = $event"
 						outlined
+						dense
 						placeholder="Data Entrega"
 						:rules="[rules.required,rules.date]"
 						backgroundColor="white"
@@ -36,7 +37,8 @@
 					<span>Hora</span>
 					<TimePickerMenu
 						:time="hour"
-						@resetarDate="hour = $event"
+						dense
+						@resetTime="hour = $event"
 						outlined
 						placeholder="Hora Entrega"
 						:rules="[rules.required,rules.hour]"
@@ -78,6 +80,7 @@ export default {
 	methods: {
 		onAddDate() {
 			let obj = this.date + " " + this.hour;
+			console.log(obj);
 			this.$emit("onAddDate", obj);
 			this.menu = false;
 		},
@@ -86,8 +89,10 @@ export default {
 		menu() {
 			if (this.menu == false) {
 			} else {
-				this.date = moment().format().substring(0,10);
-				this.hour = moment().format().substring(11,16);
+				if(!!this.date==false)
+					this.date = moment().format().substring(0,10);
+				if(!!this.hour==false)
+					this.hour = moment().format().substring(11,16);
 			}
 		},
 	},

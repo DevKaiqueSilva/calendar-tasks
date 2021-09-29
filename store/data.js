@@ -1,6 +1,11 @@
 export const state = () => ({
     confirmMessage:{},
     snackbar:{},
+    tasks:[{
+        title: "TO DO",
+        order: 1,
+        cards: [],
+    }]
 });
 
 export const mutations = {
@@ -10,7 +15,9 @@ export const mutations = {
     setSnackbar(state,snackbar){
         state.snackbar = snackbar;
     },
-    
+    setTasks(state,tasks){
+        state.tasks = tasks;
+    }
 }
 
 export const actions = {
@@ -20,7 +27,9 @@ export const actions = {
     setSnackbar(vuexContext,snackbar){
         vuexContext.commit("setSnackbar", snackbar);
     },
-    
+    setTasks(vuexContext, tasks){
+        vuexContext.commit("setTasks", tasks);
+    }
 }
 
 export const getters = {
@@ -30,4 +39,7 @@ export const getters = {
     snackbar(state){
         return state.snackbar;
     },
+    tasks(state){
+        return state.tasks;
+    }
 }

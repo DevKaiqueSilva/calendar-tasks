@@ -50,7 +50,7 @@ export default {
 			type: String,
 			default: ""
 		},
-		tipo:{
+		textEdit:{
 			type: String,
 			default: ""
 		},

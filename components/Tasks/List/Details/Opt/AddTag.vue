@@ -21,16 +21,16 @@
             <v-divider />
             <div class="my-2">
                 <v-card @click="$emit('onEtiqueta',item)"
-                class="pa-2 my-2 font-weight-bold white--text"
-                flat v-for="(item,i) in etiquetas" :key="i"
+                class=" body-2 font-weight-bold white--text pa-1 px-3 my-2"
+                flat v-for="(item,i) in tags" :key="i"
                 :color="item.cor"
                 >
-                <v-layout align-center>
-                    <div class="mt-1">{{item.titulo}}</div>
-                    <v-icon class="pl-2" color="white"
-                    v-if="card.etiqueta.filter(item2=>{return item2.titulo==item.titulo}).length>0"
-                    >mdi-check-bold</v-icon>
-                </v-layout>
+                    <v-layout align-center justify-space-between>
+                        <div class="mt-1" style="text-transform:uppercase">{{item.titulo}}</div>
+                        <v-icon class="pl-2" color="white"
+                        v-if="card.etiqueta.filter(item2=>{return item2.titulo==item.titulo}).length>0"
+                        >mdi-check-bold</v-icon>
+                    </v-layout>
                 </v-card>
             </div>
         </v-card>
@@ -48,7 +48,10 @@ export default {
     data() {
         return {
             menu: false,
-            etiquetas: [],
+            tags: [
+                { titulo: "Novo", cor: "green" }, { titulo: "Melhoria", cor: "yellow"},
+                { titulo: "Ajuste", cor: "orange"}, { titulo: "Erro", cor: "red"},
+            ],
         };
     },
     watch: {

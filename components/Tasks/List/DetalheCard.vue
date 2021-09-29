@@ -5,8 +5,8 @@
             <v-text-field :solo="titleEdit == false" style="color: #212121"
                 @focus="titleEdit = true" :background-color="titleEdit ? 'white' : 'transparent'"
                 hide-details :outlined="titleEdit" :flat="titleEdit == false" class="title"
-                ref="titulo" dense placeholder="Título" @blur="onCard"
-                @keyup.enter="$refs.titulo.blur()" v-model="item.titulo"
+                ref="titulo" dense placeholder="Título" @blur="()=>{titleEdit=false;$refs.titulo.blur()}"
+                @keyup.enter="()=>{titleEdit=false;$refs.titulo.blur()}" v-model="item.titulo"
             />
             <v-btn @click="$emit('onClose')" text color="#424242">
                 <v-icon>mdi-close</v-icon>
@@ -16,10 +16,10 @@
             na lista {{ list.titulo }}
         </div>
         <v-card style="margin-left: 40px !important; width: fit-content"
-        class="pa-1 ma-1 subtitle-2" flat v-if="item.DeliveryDate != null"
+        class="pa-1 ma-1 subtitle-2" flat v-if="!!item.deliveryDate"
         color="rgba(0,0,0,0.15)" height="30">
             <v-layout style="opacity: 0.7" wrap>
-                Date Entrega: {{ $format().date(item.DeliveryDate) }}
+                Data Entrega: {{ $format().date(item.deliveryDate) }}
             </v-layout>
         </v-card>
         <v-layout wrap style="margin-left: 35px">
@@ -60,7 +60,7 @@
                     </div>
                     <AddChecklist :card="item" @onAddChecklist="(v)=>item.checklist.push(v)"/>
                     <AddTag :card="item" @onEtiqueta="onEtiqueta" />
-                    <DeliveryDate @onAddDate="(v)=>{item.DeliveryDate = v;}"/>
+                    <DeliveryDate @onAddDate="$emit('onAddDate',$event)"/>
                 </div>
                 <div class="pt-2">
                     <v-divider />
@@ -73,13 +73,13 @@
 
 <script>
 import axios from "axios";
-import DeleteCard from "@/components/Trello/Tasks/List/Details/Opt/DeleteCard.vue";
+import DeleteCard from "@/components/Tasks/List/Details/Opt/DeleteCard.vue";
 import FieldEdit from "@/components/UI/FieldEdit.vue";
-import AddChecklist from "@/components/Trello/Tasks/List/Details/Opt/AddChecklist.vue";
-import AddTag from "@/components/Trello/Tasks/List/Details/Opt/AddTag.vue";
-import DeliveryDate from "@/components/Trello/Tasks/List/Details/Opt/DeliveryDate.vue";
-import CheckList from "@/components/Trello/Tasks/List/Details/Checklist.vue";
-import CommentItem from "@/components/Trello/Tasks/List/Details/CommentItem.vue";
+import AddChecklist from "@/components/Tasks/List/Details/Opt/AddChecklist.vue";
+import AddTag from "@/components/Tasks/List/Details/Opt/AddTag.vue";
+import DeliveryDate from "@/components/Tasks/List/Details/Opt/DeliveryDate.vue";
+import CheckList from "@/components/Tasks/List/Details/Checklist.vue";
+import CommentItem from "@/components/Tasks/List/Details/CommentItem.vue";
 import moment from "moment";
 
 export default {
@@ -105,7 +105,7 @@ export default {
     data() {
         return {
             titleEdit: false,
-            commentText: "",
+            commentText: ""
         };
     },
     methods: {
@@ -116,7 +116,7 @@ export default {
                 titulo: v.titulo,
                 cor: v.cor,
             };
-            let itemEdit = this.item.etiqueta.filter((item) => {
+            let itemEdit = this.item.etiqueta.filter((item,i) => {
                 if (item.titulo == v.titulo) {
                     index = i;
                 }

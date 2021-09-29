@@ -20,8 +20,7 @@
 		</v-layout>
 		<v-card flat class="px-1 cardCheck" color="transparent">
 			<v-layout v-for="(check,i) in item.list" :key="i" align-center class="my-2 mt-3 py-1">
-				<v-checkbox class="ma-0 pa-0" hide-details 
-				@change="check.checked = !check.checked" v-model="check.checked"/>
+				<v-checkbox class="ma-0 pa-0" hide-details v-model="check.checked"/>
 				<div class="ml-2 subtitle-2">{{check.titulo}}</div>
 				<v-spacer />
 				<a @click="item.list.splice(i, 1)">
@@ -33,7 +32,7 @@
 			<FieldEdit 
 				v-if="showAddCheck" placeholder="Adicione uma descrição..."
 				@onClose="showAddCheck=false" :textEdit="newCheck"
-				@textChange="onAddItem"
+				@textChange="onAddItem" dense
 			/>
 			<v-btn v-else color="rgba(0,0,0,0.2)" small
 			height="35" @click="addItem" class="elevation-0">
@@ -86,7 +85,7 @@ export default {
 				return (
 				(item.list.filter((item2) => {
 					return item2.checked;
-				}).length *100) / item.lista.length
+				}).length *100) / item.list.length
 				);
 			}
 		},

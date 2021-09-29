@@ -15,7 +15,9 @@
         :label="label"
         prepend-inner-icon="mdi-clock"
         readonly
-        :placeholder="placeholder"
+        :disabled="disabled"
+        :dense="dense"
+        :hide-details="hideDetails"
         :rules="rules"
         :background-color="backgroundColor"
         :outlined="outlined"
@@ -24,24 +26,16 @@
         v-on="on"
       ></v-text-field>
     </template>
-    <v-time-picker no-title v-if="menu2" v-model="time2" full-width @click:minute="changeTime"></v-time-picker>
+    <v-time-picker  no-title v-if="menu2" locale="pt-BR"  format="24hr" v-model="time2" full-width @click:minute="changeTime" ></v-time-picker>
   </v-menu>
 </template>
 <script>
 export default {
-  props: [
-    "time",
-    "label",
-    "outlined",
-    "filled",
-    "backgroundColor",
-    "rules",
-    "placeholder",
-  ],
+  props: ["time", "label", "outlined", "filled", "backgroundColor", "rules","hideDetails","dense","disabled"],
   data() {
     return {
       menu2: false,
-      time2: "",
+      time2: ""
     };
   },
   created() {
@@ -49,9 +43,10 @@ export default {
   },
   methods: {
     changeTime() {
+      console.log(this.time2);
       this.$emit("resetTime", this.time2);
-      this.menu2 = false;
-    },
-  },
+      this.$refs.menu.save(this.time2)
+    }
+  }
 };
 </script>
