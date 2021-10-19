@@ -1,6 +1,6 @@
 # Calendário de Tarefas
-![Alt text](https://github.com/DevKaiqueSilva/calendar-tasks/blob/master/assets/app.png "Aplicativo")
-![Alt text](https://github.com/DevKaiqueSilva/calendar-tasks/blob/master/assets/app2.png "Aplicativo")
+![Alt text](https://github.com/DevKaiqueSilva/calendar-tasks/blob/main/assets/app.PNG "Aplicativo")
+![Alt text](https://github.com/DevKaiqueSilva/calendar-tasks/blob/main/assets/app2.PNG "Aplicativo")
 
 <p> Aplicativo baseado no Trello, com as seguintes funcionalidades: </p>
 
