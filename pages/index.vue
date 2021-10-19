@@ -7,7 +7,8 @@
 
 <script>
 export default {
-  components: {
-  }
+	created(){
+		this.$router.push("/task");
+	}
 }
 </script>
