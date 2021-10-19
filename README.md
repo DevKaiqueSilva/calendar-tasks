@@ -1,4 +1,7 @@
 # Calendário de Tarefas
+![Alt text](https://github.com/DevKaiqueSilva/calendar-tasks/blob/master/assets/app.png "Aplicativo")
+![Alt text](https://github.com/DevKaiqueSilva/calendar-tasks/blob/master/assets/app2.png "Aplicativo")
+
 <p> Aplicativo baseado no Trello, com as seguintes funcionalidades: </p>
 
 - Criação de colunas para tarefas
